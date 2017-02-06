@@ -1,0 +1,290 @@
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+.select button {
+  margin-right: 5px;
+}
+connection-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.heading {
+  margin-bottom: 30px;
+}
+
+#chat_form {
+  position: absolute;
+  bottom: 0;
+}
+#ramble-app-container {
+  padding-right: 0px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 0;
+  transition: height 0.5s;
+}
+
+/*chat window styles*/
+.panel{
+    margin-bottom: 0px;
+}
+.chat-window{
+    bottom:0;
+    position:fixed;
+    float:right;
+    margin-left:10px;
+}
+.chat-window > div > .panel{
+    border-radius: 5px 5px 0 0;
+}
+.icon_minim{
+    padding:2px 10px;
+}
+.msg_container_base{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height:400px;
+  height: 400px;
+  overflow-x:hidden;
+}
+.top-bar {
+  background: #666;
+  color: white;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.msg_receive{
+    padding-left:0;
+    margin-left:0;
+}
+.msg_sent{
+    padding-bottom:20px !important;
+    margin-right:0;
+}
+.messages {
+  background: white;
+  padding: 5px 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  max-width:100%;
+}
+.messages > p {
+    font-size: 14px;
+    margin: 0 0 0.2rem 0;
+  }
+.messages > time {
+    color: #7d7d7d;
+    font-size: 11px;
+}
+.msg_container {
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+}
+img {
+    display: block;
+    width: 100%;
+}
+.avatar {
+    position: relative;
+}
+.base_receive > .avatar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid #FFF;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.base_sent {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.base_sent > .avatar:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+}
+
+.msg_sent > time{
+    float: right;
+}
+
+
+
+.msg_container_base::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.panel-footer .input-group-btn {
+  width: initial;
+}
+#chat .chat-window {
+  padding: 0px;
+}
+#chat {
+  margin-right: -15px;
+}
+.form-group.row {
+  margin-right: 0px;
+}
+#chat .panel.panel-default {
+  width: 100%;
+  overflow: auto;
+}
+.messages.sent {
+  background: #cfd8dc;
+}
+@media (min-width: 768px) {
+  .msg_container_base {
+    height: 400px;
+    overflow-y: scroll;
+  }
+}
+.messages.sent > time span.nick {
+  color: #2f8a1a;
+}
+.messages.sent > time span.time {
+  color: #8c8c8c;
+}
+.messages.connect_message {
+  text-align: center;
+  background: #fff9ef;
+}
+.messages.join_message {
+  background: #f6ffdf;
+}
+.messages.leave_message {
+  text-align: right;
+  background: #ffd5bc;
+}
+
+
+/* users tab styles */
+
+.sidenav {
+    height: initial; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    bottom: 61px;
+    height: 400px;
+    overflow: auto;
+    right: 0;
+    background-color: #b8bfda; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: auto;
+    padding-top: 10px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sidenav p {
+  padding: 0px 10px;
+  text-align: center;
+  color: #10674a;
+  font-size: 13px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#users_button:not(.active) {
+  background-color: #5bc0de;
+  color: #fff;
+}
+.panel-title {
+  font-size: 18px;
+  padding-top: 10px;
+}
+#room_choice {
+  padding: 20px 0px;
+  margin-top: 10em;
+}
+.connection_form {
+  padding: 20px 0px;
+  margin-top: 6em;
+}
+.chat-slide-button {
+  text-align: right;
+  height: 0px;
+}
+#slide-up {
+  position: relative;
+  bottom: 39px;
+  right: 7px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding: 0px 30px;
+  font-size: 28px;
+  transform: perspective(7px) rotateX(3deg);
+}

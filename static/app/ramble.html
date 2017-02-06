@@ -1,0 +1,101 @@
+<div class="col-12 chat-slide-button">
+  <button type="button" (click)="toggleChat()" class="btn btn-success" id="slide-up"><i class="fa fa-comments" aria-hidden="true"></i></button>
+</div>
+<section id="room_choice" *ngIf="!privateSelected && !globalSelected">
+  <div class="row flex-items-xs-center">
+    <h2 class="heading">Select a room</h2>
+  </div>
+  <div class="row flex-items-xs-center select">
+    <button type="button" class="btn btn-primary" (click)="showPrivateForm()">Private</button>
+    <button type="button" class="btn btn-secondary" (click)="showGlobalForm()">Global</button>
+  </div>
+</section>
+<form class="connection_form" [formGroup]="privateConnectionForm" *ngIf="!idReceived && privateSelected" (keyup.enter)="initiatePrivateConnectionForm(privateConnectionForm.valid)">
+    <div class="form-group row flex-items-xs-center" [ngClass]="{'has-danger':!privateConnectionForm.controls['username'].valid && privateConnectionForm.controls['username'].touched}">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{'form-control-danger':!privateConnectionForm.controls['username'].valid && privateConnectionForm.controls['username'].touched}">
+            <div *ngIf="privateConnectionForm.controls['username'].hasError('required') && privateConnectionForm.controls['username'].touched" class="form-control-feedback">Please enter the username.</div>
+        </div>
+    </div>
+    <div class="form-group row flex-items-xs-center" [ngClass]="{'has-danger':!privateConnectionForm.controls['password'].valid && privateConnectionForm.controls['password'].touched}">
+        <div class="col-sm-12">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{'form-control-danger':!privateConnectionForm.controls['password'].valid && privateConnectionForm.controls['password'].touched}">
+            <div *ngIf="privateConnectionForm.controls['password'].hasError('required') && privateConnectionForm.controls['password'].touched" class="form-control-feedback">Password is a required field.</div>
+            <div *ngIf="privateConnectionForm.controls['password'].hasError('minlength') && privateConnectionForm.controls['password'].touched" class="form-control-feedback">Password should be at least 10 characters long.</div>
+            <div *ngIf="!privateConnectionForm.controls['password'].hasError('minlength') && privateConnectionForm.controls['password'].hasError('pattern') && privateConnectionForm.controls['password'].touched" class="form-control-feedback">
+                Password should contain at least one lower case, one upper case letter, one digit and one special character.</div>
+            <div *ngIf="privateConnectionForm.controls['password'].hasError('maxlength') && privateConnectionForm.controls['password'].touched" class="form-control-feedback">Password should be less than 30 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group row flex-items-xs-center" [ngClass]="{'has-danger':!privateConnectionForm.controls['room'].valid && privateConnectionForm.controls['room'].touched}">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" formControlName="room" placeholder="Room name" [ngClass]="{'form-control-danger':!privateConnectionForm.controls['room'].valid && privateConnectionForm.controls['room'].touched}">
+            <div *ngIf="privateConnectionForm.controls['room'].hasError('required') && privateConnectionForm.controls['room'].touched" class="form-control-feedback">Please enter room name.</div>
+        </div>
+    </div>
+    <div class="form-group row flex-items-xs-center select">
+        <button type="button" (click)="showPrivateForm()" class="btn btn-outline-success">Back</button>
+        <button type="button" [disabled]="!privateConnectionForm.valid" (click)="initiatePrivateConnectionForm(privateConnectionForm.valid)" class="btn btn-primary">Connect</button>
+    </div>
+</form>
+
+<form class="connection_form" [formGroup]="globalConnectionForm" *ngIf="!idReceived && globalSelected" (keyup.enter)="initiateGlobalConnectionForm(globalConnectionForm.valid)">
+    <div class="form-group row flex-items-xs-center" [ngClass]="{'has-danger':!globalConnectionForm.controls['username'].valid && globalConnectionForm.controls['username'].touched}">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{'form-control-danger':!globalConnectionForm.controls['username'].valid && globalConnectionForm.controls['username'].touched}">
+            <div *ngIf="globalConnectionForm.controls['username'].hasError('required') && globalConnectionForm.controls['username'].touched" class="form-control-feedback">Please enter the username.</div>
+        </div>
+    </div>
+    <div class="form-group row flex-items-xs-center select">
+        <button type="button" (click)="showGlobalForm()" class="btn btn-outline-success">Back</button>
+        <button type="button" [disabled]="!globalConnectionForm.valid" (click)="initiateGlobalConnectionForm(globalConnectionForm.valid)" class="btn btn-primary">Connect</button>
+    </div>
+</form>
+
+<section id="chat" *ngIf="idReceived && (privateSelected || globalSelected)" [@fadeIn]>
+  <div class="row chat-window col-xs-12 col-md-12" id="chat_window_1">
+    <div class="panel panel-default">
+      <div class="panel-heading top-bar" id="top-bar">
+        <div class="col-md-8 col-xs-8">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Ramble: {{ room }}</h3>
+        </div>
+        <div class="col-md-4 col-xs-4" style="text-align: right;">
+            <button (click)="toggleUsers()" type="button" id="users_button" class="btn btn-outline-info">Users</button>
+        </div>
+      </div>
+
+        <div class="panel-body msg_container_base" id="message_container">
+          <div id="mySidenav" class="sidenav">
+            <p *ngFor="let user of users | async">
+              {{user}}
+            </p>
+          </div>
+          <div *ngFor="let message of messages | async" class="row msg_container">
+            <div [ngSwitch]="message.type" class="col-xs-12 col-md-12">
+                <div *ngSwitchCase="'message'" [class.sent]="message.class === 'sent'" class="messages">
+                      <p>{{message.message}}</p>
+                      <time><span class="nick">{{message.nick}}</span> • <span class="time">{{message.time}}</span></time>
+                </div>
+                <div *ngSwitchCase="'join'" class="messages join_message">
+                      <p><strong>{{message.nick}}</strong>{{message.message}}</p>
+                </div>
+                <div *ngSwitchCase="'leave'" class="messages leave_message">
+                      <p><strong>{{message.nick}}</strong>{{message.message}}</p>
+                </div>
+                <div *ngSwitchCase="'connect'" class="messages connect_message">
+                      <p>{{message.message}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      <div class="panel-footer">
+        <div [formGroup]="chatForm" (keyup.enter)="chatKeyEnter(chatForm.valid)" class="input-group">
+          <input formControlName="message" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Your message..." aria-describedby="btn-chat"/>
+          <span class="input-group-btn">
+            <button [disabled]="!chatForm.valid" (click)="sendMessage()" class="btn btn-secondary" id="btn-chat">Send</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

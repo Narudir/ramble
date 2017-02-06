@@ -11,8 +11,8 @@ export class ChatService{
   private username: string;
   private password: string;
   private headers = new Headers({'Content-Type': 'application/json'});
-  private wsUrl = 'ws://localhost:8888/ws/';
-  private url = 'http://localhost:8888/get_clientid/';
+  private wsUrl = 'ws://rambleserver-narudir.rhcloud.com/ws/';
+  private url = 'http://rambleserver-narudir.rhcloud.com/get_clientid/';
   private websocket: any;
   private CryptoJS = require("crypto-js/crypto-js.js");
   public clientIdObservable: Observable<string>;

@@ -6,7 +6,7 @@
 (function (global) {
   System.config({
     paths: {
-      'npm:': 'node_modules/' // path serves as alias
+      'npm:': 'https://unpkg.com/' // path serves as alias
     },
     // map tells the System loader where to look for things
     map: {
@@ -26,7 +26,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-      'crypto-js':                 'npm:crypto-js'
+      'crypto-js':                 'node_modules/crypto-js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

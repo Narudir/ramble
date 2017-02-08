@@ -17,7 +17,7 @@ var ChatService = (function () {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.wsUrl = 'ws://127.12.48.1/ws/';
-        this.url = 'http://127.12.48.1/get_clientid/';
+        this.url = 'http://127.12.48.1:8080/get_clientid/';
         this.CryptoJS = require("crypto-js/crypto-js.js");
     }
     ChatService.prototype.setParams = function (username, room, password) {

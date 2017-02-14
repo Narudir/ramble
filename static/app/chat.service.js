@@ -19,7 +19,6 @@ var ChatService = (function () {
         this.wsUrl = 'ws://rambleserver-narudir.rhcloud.com:8000/ws/';
         this.url = 'http://rambleserver-narudir.rhcloud.com/get_clientid/';
         this.CryptoJS = require("crypto-js/crypto-js.js");
-        this.audio = new Audio('../sounds/notification.mp3');
     }
     ChatService.prototype.setParams = function (username, room, password) {
         this.username = username;
@@ -125,6 +124,7 @@ var ChatService = (function () {
                     }
                     else {
                         messageObj['class'] = 'received';
+                        setTimeout(_this.notification, 0);
                     }
                     if (typeof _this.password !== 'undefined') {
                         var bytes = _this.CryptoJS.AES.decrypt(message.payload, _this.password);
@@ -166,7 +166,10 @@ var ChatService = (function () {
     ChatService.prototype.scroll = function () {
         var out = document.getElementById("message_container");
         out.scrollTop = out.scrollHeight;
-        this.audio.play();
+    };
+    ChatService.prototype.notification = function () {
+        var audio = new Audio("../sounds/notification.mp3");
+        audio.play();
     };
     ChatService = __decorate([
         core_1.Injectable(),

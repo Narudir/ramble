@@ -16,9 +16,10 @@ var ChatService = (function () {
     function ChatService(http) {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.wsUrl = 'ws://127.12.48.1/ws/';
-        this.url = 'http://127.12.48.1:8080/get_clientid/';
+        this.wsUrl = 'ws://rambleserver-narudir.rhcloud.com:8000/ws/';
+        this.url = 'http://rambleserver-narudir.rhcloud.com/get_clientid/';
         this.CryptoJS = require("crypto-js/crypto-js.js");
+        this.audio = new Audio('../sounds/notification.mp3');
     }
     ChatService.prototype.setParams = function (username, room, password) {
         this.username = username;
@@ -165,6 +166,7 @@ var ChatService = (function () {
     ChatService.prototype.scroll = function () {
         var out = document.getElementById("message_container");
         out.scrollTop = out.scrollHeight;
+        this.audio.play();
     };
     ChatService = __decorate([
         core_1.Injectable(),

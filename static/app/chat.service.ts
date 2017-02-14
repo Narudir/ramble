@@ -11,10 +11,11 @@ export class ChatService{
   private username: string;
   private password: string;
   private headers = new Headers({'Content-Type': 'application/json'});
-  private wsUrl = 'ws://rambleserver-narudir.rhcloud.com/ws/';
+  private wsUrl = 'ws://rambleserver-narudir.rhcloud.com:8000/ws/';
   private url = 'http://rambleserver-narudir.rhcloud.com/get_clientid/';
   private websocket: any;
   private CryptoJS = require("crypto-js/crypto-js.js");
+  private audio = new Audio('../notification.mp3');
   public clientIdObservable: Observable<string>;
   private serverMsgs: Observable<MessageEvent>;
   public messagesObs: Observable<string[]>;
@@ -174,5 +175,6 @@ export class ChatService{
   private scroll(): void {
       var out = document.getElementById("message_container");
       out.scrollTop = out.scrollHeight;
+      this.sound.play();
   }
 }

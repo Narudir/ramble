@@ -91,6 +91,7 @@ var ChatService = (function () {
                     messages.push(messageObj);
                     messagesSubj.next(messages);
                     setTimeout(_this.scroll, 0);
+                    setTimeout(_this.notification("join"), 0);
                     break;
                 case 'leave':
                     messageObj = {
@@ -102,6 +103,7 @@ var ChatService = (function () {
                     messages.push(messageObj);
                     messagesSubj.next(messages);
                     setTimeout(_this.scroll, 0);
+                    setTimeout(_this.notification("leave"), 0);
                     break;
                 case 'username_list':
                     users.length = 0;
@@ -167,12 +169,22 @@ var ChatService = (function () {
         var out = document.getElementById("message_container");
         out.scrollTop = out.scrollHeight;
     };
-    ChatService.prototype.notification = function () {
-        var audio = new Audio("../sounds/notification.mp3");
-        audio.play();
+    ChatService.prototype.notification = function (type) {
+        if (type == "join") {
+            var audio = new Audio("../sounds/join.mp3");
+            audio.play();
+        }
+        else if (type == "leave") {
+            var audio = new Audio("../sounds/leave.mp3");
+            audio.play();
+        }
+        else {
+            var audio = new Audio("../sounds/notification.mp3");
+            audio.play();
+        }
     };
     ChatService = __decorate([
-        core_1.Injectable(),
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
     ], ChatService);
     return ChatService;
